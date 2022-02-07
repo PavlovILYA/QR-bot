@@ -23,6 +23,8 @@ public class BotConfig {
         this.restTemplate = restTemplate;
     }
 
+
+
     @PostConstruct
     void init() {
         WebHook webHook = new WebHook().setUrl(webhookUrl);

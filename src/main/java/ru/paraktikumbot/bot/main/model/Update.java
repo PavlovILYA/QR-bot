@@ -22,6 +22,10 @@ public class Update {
         return message.getText();
     }
 
+    public Message getMessage() {
+        return message;
+    }
+
     public Update setUpdateId(Integer updateId) {
         this.updateId = updateId;
         return this;
