@@ -24,9 +24,4 @@ public class Message {
     public Chat getChat() {
         return chat;
     }
-
-    public Message setMessageId(Integer messageId) {
-        this.messageId = messageId;
-        return this;
-    }
 }

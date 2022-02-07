@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.paraktikumbot.bot.main.model.TelegramRequestService;
+import ru.paraktikumbot.bot.main.service.TelegramRequestService;
 import ru.paraktikumbot.bot.main.model.Update;
 
 @RestController
@@ -24,9 +24,8 @@ public class MainController {
         System.out.println("      ChatId: " + update.getMessage().getChat().getId());
         System.out.println("    ChatType: " + update.getMessage().getChat().getType());
         System.out.println("ChatUsername: " + update.getMessage().getChat().getUsername());
+        telegramRequestService.sendMessage(update.getMessage().getChat().getId(), "Hello, I am Pavlov's Bot");
         System.out.println("----------------------------");
-        telegramRequestService.sendMessage();
-        System.out.println(telegramRequestService.sendMessage());
     }
 
 
