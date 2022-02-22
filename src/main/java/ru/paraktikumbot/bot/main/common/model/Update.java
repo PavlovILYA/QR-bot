@@ -1,4 +1,4 @@
-package ru.paraktikumbot.bot.main.model;
+package ru.paraktikumbot.bot.main.common.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

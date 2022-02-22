@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.paraktikumbot.bot.main.model.SendMessageParams;
+import ru.paraktikumbot.bot.main.common.model.SendMessageParams;
 
 @Service
 public class TelegramRequestService {

@@ -1,11 +1,11 @@
-package ru.paraktikumbot.bot.main.controller;
+package ru.paraktikumbot.bot.main.common.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.paraktikumbot.bot.main.service.TelegramRequestService;
-import ru.paraktikumbot.bot.main.model.Update;
+import ru.paraktikumbot.bot.main.common.model.Update;
 
 @RestController
 @RequestMapping("/")
