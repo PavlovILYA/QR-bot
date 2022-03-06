@@ -10,6 +10,7 @@ public class Message {
     private Integer messageId;
     private String text;
     private Chat chat;
+    private List<MessageEntity> entities;
 
     public List<MessageEntity> getEntities() {
         return entities;
@@ -19,8 +20,6 @@ public class Message {
         this.entities = entities;
         return this;
     }
-
-    private List<MessageEntity> entities;
 
     public Message setMessageId(Integer messageId) {
         this.messageId = messageId;

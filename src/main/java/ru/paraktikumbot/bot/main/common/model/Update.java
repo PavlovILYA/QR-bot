@@ -33,5 +33,5 @@ public class Update {
     public Update setMessage(Message message) {
         this.message = message;
         return this;
-    }
+    }  
 }
