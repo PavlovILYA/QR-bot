@@ -23,6 +23,6 @@ public class TelegramApiService implements Api {
     public void sendMessage(SendMessageParams sendMessageParams) {
         ResponseEntity<Message> responseSendMessage = restTemplate
                 .postForEntity(telegramApi+"/sendMessage", sendMessageParams, Message.class);
-        System.out.println(responseSendMessage.getBody());
+//        System.out.println(responseSendMessage.getBody());
     }
 }

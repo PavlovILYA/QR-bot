@@ -14,9 +14,16 @@ public class BotManagerService {
     }
 
     public void process(Update update) {
-        // тут можно дополнительно обработать
+        System.out.println("    UpdateId: " + update.getUpdateId());
+        System.out.println("   MessageId: " + update.getMessageId());
+        System.out.println(" MessageText: " + update.getMessageText());
+        System.out.println("      ChatId: " + update.getMessage().getChat().getId());
+        System.out.println("    ChatType: " + update.getMessage().getChat().getType());
+        System.out.println("ChatUsername: " + update.getMessage().getChat().getUsername());
+
         context.process(update);
-        // и тут
+
+        System.out.println("----------------------------");
     }
 
 
