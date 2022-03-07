@@ -1,11 +1,13 @@
 package ru.paraktikumbot.bot.main.botmanager.strategy;
 
+import org.springframework.stereotype.Component;
 import ru.paraktikumbot.bot.main.botmanager.model.BotCommand;
 import ru.paraktikumbot.bot.main.common.model.Update;
 import ru.paraktikumbot.bot.main.api.Api;
 import ru.paraktikumbot.bot.main.telegramapi.helpers.BotCommandHelper;
 import ru.paraktikumbot.bot.main.telegramapi.outcomedata.SendMessageParams;
 
+@Component
 public class HelpCommand implements BotCommandStrategy {
 
     private final Api api;
