@@ -1,13 +1,12 @@
-package ru.paraktikumbot.bot.main.model;
+package ru.paraktikumbot.bot.main.common.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.paraktikumbot.bot.main.telegramapi.incomedata.Message;
 
 public class Update {
 
     @JsonProperty(value = "update_id")
     private Integer updateId;
-
-    @JsonProperty(value = "message")
     private Message message;
 
     public Integer getUpdateId() {
@@ -30,4 +29,9 @@ public class Update {
         this.updateId = updateId;
         return this;
     }
+
+    public Update setMessage(Message message) {
+        this.message = message;
+        return this;
+    }  
 }

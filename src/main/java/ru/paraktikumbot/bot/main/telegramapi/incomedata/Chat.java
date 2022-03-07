@@ -1,19 +1,27 @@
-package ru.paraktikumbot.bot.main.model;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package ru.paraktikumbot.bot.main.telegramapi.incomedata;
 
 public class Chat {
-    @JsonProperty(value = "id")
     private Integer id;
-
-    @JsonProperty(value = "type")
     private String type;
-
-    @JsonProperty(value = "username")
     private String username;
 
     public Integer getId() {
         return id;
+    }
+
+    public Chat setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public Chat setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public Chat setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public String getType() {
