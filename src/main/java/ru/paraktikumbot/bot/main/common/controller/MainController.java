@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.paraktikumbot.bot.main.botmanager.service.BotManagerService;
-import ru.paraktikumbot.bot.main.service.TelegramRequestService;
+import ru.paraktikumbot.bot.main.telegramapi.service.TelegramRequestService;
 import ru.paraktikumbot.bot.main.common.model.Update;
 
 @RestController

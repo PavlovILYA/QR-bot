@@ -1,4 +1,4 @@
-package ru.paraktikumbot.bot.main.telegramapi;
+package ru.paraktikumbot.bot.main.telegramapi.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
