@@ -1,4 +1,4 @@
-package ru.paraktikumbot.bot.main.telegramapi.incomedata;
+package ru.paraktikumbot.bot.main.telegramapi.outcomedata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -24,6 +24,8 @@ public class SendMessageParams {
     public String getText() {
         return text;
     }
+
+    public SendMessageParams() {}
 
     public SendMessageParams(Integer chatId, String text) {
         this.chatId = chatId;
