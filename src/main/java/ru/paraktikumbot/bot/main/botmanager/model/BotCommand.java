@@ -2,7 +2,8 @@ package ru.paraktikumbot.bot.main.botmanager.model;
 
 public enum BotCommand {
     START("/start"),
-    HELP("/help");
+    HELP("/help"),
+    QR("/qr");
 
     private final String command;
 
