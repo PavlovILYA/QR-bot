@@ -24,11 +24,12 @@ public class StartCommand implements BotCommandStrategy {
     }
 
     @Override
-    public void process(Update update) {
+    public boolean process(Update update) {
         System.out.println("Start command strategy " + update.getMessage().getText());
         SendMessageParams sendMessageParams = new SendMessageParams()
                 .setText("Привет!")
                 .setChatId(update.getMessage().getChat().getId());
         api.sendMessage(sendMessageParams);
+        return false;
     }
 }

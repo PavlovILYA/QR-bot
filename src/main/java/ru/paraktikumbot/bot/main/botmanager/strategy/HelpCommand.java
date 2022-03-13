@@ -24,11 +24,12 @@ public class HelpCommand implements BotCommandStrategy {
     }
 
     @Override
-    public void process(Update update) {
+    public boolean process(Update update) {
         System.out.println("Help command strategy " + update.getMessage().getText());
         SendMessageParams sendMessageParams = new SendMessageParams()
                 .setText("Бот почтии ничего не может. Но я бы не был настолько требовательным на твоем месте.")
                 .setChatId(update.getMessage().getChat().getId());
         api.sendMessage(sendMessageParams);
+        return false;
     }
 }

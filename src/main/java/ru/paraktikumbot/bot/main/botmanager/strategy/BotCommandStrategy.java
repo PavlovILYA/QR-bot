@@ -6,6 +6,6 @@ public interface BotCommandStrategy {
 
     boolean apply(Update update); // выбирает нужную стратегию
 
-    void process(Update update);  // выполняет логику
+    boolean process(Update update);  // выполняет логику
 
 }
