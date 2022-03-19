@@ -1,11 +1,12 @@
-package ru.paraktikumbot.bot.main.botmanager.strategy;
+package ru.paraktikumbot.bot.main.botmanager.strategy.dialogstate;
 
 import net.glxn.qrgen.core.image.ImageType;
-import net.glxn.qrgen.core.scheme.*;
+import net.glxn.qrgen.core.scheme.GeoInfo;
 import net.glxn.qrgen.javase.QRCode;
 import org.springframework.stereotype.Component;
 import ru.paraktikumbot.bot.main.api.Api;
-import ru.paraktikumbot.bot.main.botmanager.model.BotCommand;
+import ru.paraktikumbot.bot.main.botmanager.model.DialogState;
+import ru.paraktikumbot.bot.main.botmanager.service.DialogStateService;
 import ru.paraktikumbot.bot.main.common.model.Update;
 import ru.paraktikumbot.bot.main.telegramapi.outcomedata.SendMessageParams;
 import ru.paraktikumbot.bot.main.telegramapi.outcomedata.SendPhotoParams;
@@ -16,42 +17,33 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 
 @Component
-public class BotCommandContext {
+public class AskingQrDataState implements DialogStateStrategy {
 
-    private final List<BotCommandStrategy> strategies;
     private final Api api;
-    private boolean isWaitingForQrData = false;
+    private final DialogStateService dialogStateService;
 
-    public BotCommandContext(List<BotCommandStrategy> strategies, Api api) {
-        this.strategies = strategies;
+    public AskingQrDataState(Api api, DialogStateService dialogStateService) {
         this.api = api;
+        this.dialogStateService = dialogStateService;
     }
 
+    @Override
+    public boolean apply(Update update) {
+        return dialogStateService.checkDialogState(update.getChatId()) == DialogState.ASKING_QR_DATA;
+    }
+
+    @Override
     public void process(Update update) {
+        dialogStateService.putDialogState(update.getChatId(),
+                DialogState.INITIAL);
 
-        if (isWaitingForQrData) {
-            checkQrData(update);
-            return;
-        }
-
-        for (BotCommandStrategy strategy : strategies) {
-            if (strategy.apply(update)) {
-                isWaitingForQrData = strategy.process(update);
-                return;
-            }
-        }
-    }
-
-    public void checkQrData(Update update) {
         System.out.println("Qr data " + update.getMessage().getText());
 
         GeoInfo geoInfo = new GeoInfo();
         geoInfo.setPoints(Arrays.asList("59.12847", "38.00914"));
-//        SMS sms = new SMS();
-//        sms.setSubject("ты жопа");
+
         File file = QRCode.from(geoInfo).to(ImageType.PNG)
                 .withSize(200, 200)
                 .file();
@@ -80,14 +72,13 @@ public class BotCommandContext {
         System.out.println(file.exists());
 
         SendPhotoParams sendPhotoParams = new SendPhotoParams()
-                .setChatId(update.getMessage().getChat().getId())
+                .setChatId(update.getChatId())
                 .setPhoto(photo);
 
         SendMessageParams sendMessageParams = new SendMessageParams()
                 .setText("Ловите QR #")
-                .setChatId(update.getMessage().getChat().getId());
+                .setChatId(update.getChatId());
         api.sendMessage(sendMessageParams);
         api.sendPhoto(sendPhotoParams);
-        isWaitingForQrData = false;
     }
 }

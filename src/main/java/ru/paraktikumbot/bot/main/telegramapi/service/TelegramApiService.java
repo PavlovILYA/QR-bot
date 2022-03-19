@@ -49,9 +49,4 @@ public class TelegramApiService implements Api {
         ResponseEntity<Message> responseSendPhoto = restTemplate
                 .postForEntity(telegramApi+"/sendPhoto", requestEntity, Message.class);
     }
-
-    @Override
-    public void uploadPhoto() {
-
-    }
 }

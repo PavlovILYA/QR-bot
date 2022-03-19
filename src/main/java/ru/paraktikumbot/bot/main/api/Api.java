@@ -6,5 +6,4 @@ import ru.paraktikumbot.bot.main.telegramapi.outcomedata.SendPhotoParams;
 public interface Api {
     void sendMessage(SendMessageParams sendMessageParams);
     void sendPhoto(SendPhotoParams sendPhotoParams);
-    void uploadPhoto();
 }

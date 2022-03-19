@@ -25,6 +25,10 @@ public class Update {
         return message;
     }
 
+    public Integer getChatId() {
+        return message.getChat().getId();
+    }
+
     public Update setUpdateId(Integer updateId) {
         this.updateId = updateId;
         return this;
