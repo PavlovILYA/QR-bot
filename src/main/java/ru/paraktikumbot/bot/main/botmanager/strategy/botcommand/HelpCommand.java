@@ -29,7 +29,9 @@ public class HelpCommand implements BotCommandStrategy {
     public void process(Update update) {
         System.out.println("Help command strategy " + update.getMessage().getText());
         SendMessageParams sendMessageParams = new SendMessageParams()
-                .setText("Бот почтии ничего не может. Но я бы не был настолько требовательным на твоем месте.")
+                .setText("Бот конвертирует информацию в QR-код\n" +
+                        "На данный момент бот может конвертировать гео-точку, email, визитную карточку и YouTube-видео" +
+                        "\n\nДоступные команды:\n/start\n/help\n/qr")
                 .setChatId(update.getMessage().getChat().getId());
         api.sendMessage(sendMessageParams);
         // если нужно изменить состояние диалога, вызвать dialogStateService.putDialogState

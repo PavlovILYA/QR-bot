@@ -31,7 +31,8 @@ public class QrCommand implements BotCommandStrategy {
     public void process(Update update) {
         System.out.println("Qr command strategy " + update.getMessage().getText());
         SendMessageParams sendMessageParams = new SendMessageParams()
-                .setText("Отправьте следующим соообщением инфоормацию6 которую хотите завернуть в QR :)")
+                .setText("Выберите тип данных, которые будут конвертированы в QR-код:" +
+                        "\n 1 - Гео-точка\n 2 - Email\n 3 - Визитная карточка\n 4 - YouTube")
                 .setChatId(update.getMessage().getChat().getId());
         api.sendMessage(sendMessageParams);
         dialogStateService.putDialogState(update.getMessage().getChat().getId(), DialogState.ASKING_QR_DATA);

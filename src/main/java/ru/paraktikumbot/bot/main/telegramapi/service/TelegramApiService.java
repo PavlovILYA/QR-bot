@@ -30,7 +30,6 @@ public class TelegramApiService implements Api {
     public void sendMessage(SendMessageParams sendMessageParams) {
         ResponseEntity<Message> responseSendMessage = restTemplate
                 .postForEntity(telegramApi+"/sendMessage", sendMessageParams, Message.class);
-//        System.out.println(responseSendMessage.getBody());
     }
 
     @Override
@@ -43,8 +42,6 @@ public class TelegramApiService implements Api {
         body.add("chat_id", sendPhotoParams.getChatId());
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-
-
 
         ResponseEntity<Message> responseSendPhoto = restTemplate
                 .postForEntity(telegramApi+"/sendPhoto", requestEntity, Message.class);

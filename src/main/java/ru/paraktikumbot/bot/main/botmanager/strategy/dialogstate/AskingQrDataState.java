@@ -1,22 +1,12 @@
 package ru.paraktikumbot.bot.main.botmanager.strategy.dialogstate;
 
-import net.glxn.qrgen.core.image.ImageType;
-import net.glxn.qrgen.core.scheme.GeoInfo;
-import net.glxn.qrgen.javase.QRCode;
 import org.springframework.stereotype.Component;
 import ru.paraktikumbot.bot.main.api.Api;
 import ru.paraktikumbot.bot.main.botmanager.model.DialogState;
 import ru.paraktikumbot.bot.main.botmanager.service.DialogStateService;
 import ru.paraktikumbot.bot.main.common.model.Update;
 import ru.paraktikumbot.bot.main.telegramapi.outcomedata.SendMessageParams;
-import ru.paraktikumbot.bot.main.telegramapi.outcomedata.SendPhotoParams;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 
 @Component
 public class AskingQrDataState implements DialogStateStrategy {
@@ -36,49 +26,48 @@ public class AskingQrDataState implements DialogStateStrategy {
 
     @Override
     public void process(Update update) {
-        dialogStateService.putDialogState(update.getChatId(),
-                DialogState.INITIAL);
-
-        System.out.println("Qr data " + update.getMessage().getText());
-
-        GeoInfo geoInfo = new GeoInfo();
-        geoInfo.setPoints(Arrays.asList("59.12847", "38.00914"));
-
-        File file = QRCode.from(geoInfo).to(ImageType.PNG)
-                .withSize(200, 200)
-                .file();
-
-//        File file = QRCode.from("www.google.com").to(ImageType.PNG)
-//                .withSize(200, 200)
-//                .file();
-
-        String fileName = "qrgen-qrcode.png";
+        System.out.println("Qr data type " + update.getMessageText());
+        String output;
 
         try {
-            Path path = Paths.get(fileName);
-            if ( Files.exists(path)){
-                    Files.delete(path);
-            }
-            Files.copy(file.toPath(), path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        MeCard johnDoe = new MeCard("John Doe");
-//        johnDoe.setEmail("john.doe@example.org");
-//        johnDoe.setAddress("John Doe Street 1, 5678 Doestown");
-//        johnDoe.setTelephone("1234");
-//        QRCode.from(johnDoe).file();
-        File photo = new File("qrgen-qrcode.png");
-        System.out.println(file.exists());
+            int qrDataType = Integer.parseInt(update.getMessageText());
 
-        SendPhotoParams sendPhotoParams = new SendPhotoParams()
-                .setChatId(update.getChatId())
-                .setPhoto(photo);
+            switch (qrDataType) {
+                case 1:
+                    dialogStateService.putDialogState(update.getChatId(),
+                            DialogState.ASKING_COORDS);
+                    output = "Введите координаты гео-точки (пример: 59.12847 38.00914)";
+                    break;
+                case 2:
+                    dialogStateService.putDialogState(update.getChatId(),
+                            DialogState.ASKING_EMAIL);
+                    output = "Введите Email";
+                    break;
+                case 3:
+                    dialogStateService.putDialogState(update.getChatId(),
+                            DialogState.ASKING_NAME);
+                    output = "Введите ФИО";
+                    break;
+                case 4:
+                    dialogStateService.putDialogState(update.getChatId(),
+                            DialogState.ASKING_YOUTUBE);
+                    output = "Введите video id\n" +
+                            "(Как определить video id: http://soc-service.com/html/yb_id_video.html)";
+                    break;
+                default:
+                    throw new NumberFormatException();
+            }
+
+        } catch (NumberFormatException e) {
+            output = "НЕВЕРНЫЙ ВВОД! Попробуйте еще раз\n" +
+                    "Выберите тип данных, которые будут конвертированы в QR-код:" +
+                    "\n 1 - Гео-точка\n 2 - Email\n 3 - Визитная карточка\n 4 - YouTube";
+            System.out.println(dialogStateService.getDialogState(update.getChatId()));
+        }
 
         SendMessageParams sendMessageParams = new SendMessageParams()
-                .setText("Ловите QR #")
+                .setText(output)
                 .setChatId(update.getChatId());
         api.sendMessage(sendMessageParams);
-        api.sendPhoto(sendPhotoParams);
     }
 }
