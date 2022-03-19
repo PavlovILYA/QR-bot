@@ -15,7 +15,9 @@ public class BotCommandHelper {
         if (entities != null) {
             for (MessageEntity entity : entities) {
                 String entityType = entity.getType();
+                System.out.println("entityType: " + entityType);
                 String text = update.getMessage().getText();
+                System.out.println("      text: " + text);
                 if (EntityType.BOT_COMMAND.getType().equals(entityType)
                         && command.getCommand().equals(text)) {
                     return true;

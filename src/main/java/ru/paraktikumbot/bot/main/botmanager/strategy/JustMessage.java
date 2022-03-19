@@ -20,7 +20,8 @@ public class JustMessage implements BotCommandStrategy {
 
     @Override
     public boolean apply(Update update) {
-        return !(helper.checkCommand(BotCommand.START, update) || helper.checkCommand(BotCommand.HELP, update));
+        return !(helper.checkCommand(BotCommand.START, update) || helper.checkCommand(BotCommand.HELP, update)
+                        || helper.checkCommand(BotCommand.QR, update));
     }
 
     @Override
