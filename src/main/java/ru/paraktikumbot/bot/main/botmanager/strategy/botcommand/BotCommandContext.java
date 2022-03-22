@@ -1,8 +1,7 @@
-package ru.paraktikumbot.bot.main.botmanager.strategy;
+package ru.paraktikumbot.bot.main.botmanager.strategy.botcommand;
 
 import org.springframework.stereotype.Component;
 import ru.paraktikumbot.bot.main.common.model.Update;
-
 import java.util.List;
 
 @Component

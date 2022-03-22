@@ -1,8 +1,10 @@
-package ru.paraktikumbot.bot.main.botmanager.strategy;
+package ru.paraktikumbot.bot.main.botmanager.strategy.botcommand;
 
 import org.springframework.stereotype.Component;
 import ru.paraktikumbot.bot.main.api.Api;
 import ru.paraktikumbot.bot.main.botmanager.model.BotCommand;
+import ru.paraktikumbot.bot.main.botmanager.service.DialogStateService;
+import ru.paraktikumbot.bot.main.botmanager.strategy.botcommand.BotCommandStrategy;
 import ru.paraktikumbot.bot.main.common.model.Update;
 import ru.paraktikumbot.bot.main.telegramapi.helpers.BotCommandHelper;
 import ru.paraktikumbot.bot.main.telegramapi.outcomedata.SendMessageParams;
@@ -20,7 +22,8 @@ public class JustMessage implements BotCommandStrategy {
 
     @Override
     public boolean apply(Update update) {
-        return !(helper.checkCommand(BotCommand.START, update) || helper.checkCommand(BotCommand.HELP, update));
+        return !(helper.checkCommand(BotCommand.START, update) || helper.checkCommand(BotCommand.HELP, update)
+                        || helper.checkCommand(BotCommand.QR, update));
     }
 
     @Override
@@ -30,5 +33,6 @@ public class JustMessage implements BotCommandStrategy {
                 .setText("Очень уместное сообщение!")
                 .setChatId(update.getMessage().getChat().getId());
         api.sendMessage(sendMessageParams);
+        // если нужно изменить состояние диалога, вызвать dialogStateService.putDialogState
     }
 }
