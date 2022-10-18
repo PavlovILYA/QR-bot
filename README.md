@@ -1,3 +1,7 @@
+# Telegram-бот, генерирующий QR-код с информацией пользователя
+
+```Spring Boot``` ```Telegram API``` ```kenglxn.qrgen```
+
 # Команды
 
 __/start__ - Приветствие
